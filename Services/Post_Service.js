@@ -5,14 +5,12 @@ class Post_Service {
     // Upload Post
     async uploadPost(postData) {
         try {
-            const { Post_url, Admin_Profile } = postData;
+            const { Post_url } = postData;
 
             if (!Post_url) throw new Error('Post URL is required');
-            if (!Admin_Profile) throw new Error('Admin Profile ID is required');
 
             const newPost = new Post_Schema({
-                Post_url,
-                Admin_Profile
+                Post_url
             });
 
             await newPost.save();
@@ -25,9 +23,7 @@ class Post_Service {
     // Get All Posts
     async getAllPosts() {
         try {
-            const posts = await Post_Schema.find()
-                .populate('Admin_Profile', 'name email role')
-                .sort({ createdAt: -1 });
+            const posts = await Post_Schema.find();
 
             return posts;
         } catch (error) {

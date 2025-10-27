@@ -7,10 +7,6 @@ const Post_Schema = new mongoose.Schema({
         trim: true
     },
 
-    Admin_Profile: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Admin_Profile',
-    },
 }, { timestamps: true });
 
 module.exports = mongoose.model('Post', Post_Schema);
