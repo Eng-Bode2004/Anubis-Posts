@@ -3,6 +3,13 @@ const MongoDB = require('./Config/DataBase');
 const mongoose = require("mongoose"); // Data Base Configrations
 const express = require('express');
 
+const cors = require('cors');
+
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+}));
 
 // Set Up Port and Make Server listen To requests
 const app = express();
