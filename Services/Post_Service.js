@@ -31,6 +31,23 @@ class Post_Service {
         }
     }
 
+    async deletePost(postId) {
+        try {
+            // findByIdAndDelete is used to atomically find and remove the document.
+            const result = await Post_Schema.findByIdAndDelete(postId);
+
+            if (!result) {
+                // If result is null, the post ID was valid but not found in the DB.
+                throw new Error('Post not found');
+            }
+
+            return result;
+        } catch (error) {
+            // Propagate the specific "Post not found" error or a generic one
+            throw new Error(error.message || 'Error deleting post');
+        }
+    }
+
 }
 
 module.exports = new Post_Service();

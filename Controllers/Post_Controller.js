@@ -38,6 +38,28 @@ class Post_Controller {
             });
         }
     }
+
+    async deletePost(req, res) {
+        try {
+            const { id } = req.params; // Get the ID from the URL parameter
+
+            await Post_Service.deletePost(id);
+
+            res.status(200).json({
+                success: true,
+                message: 'Post deleted successfully'
+            });
+
+        } catch (error) {
+            // Handle specific "Post not found" for a 404 or generic 500
+            const statusCode = error.message === 'Post not found' ? 404 : 500;
+
+            res.status(statusCode).json({
+                success: false,
+                message: error.message
+            });
+        }
+    }
 }
 
 module.exports = new Post_Controller();
